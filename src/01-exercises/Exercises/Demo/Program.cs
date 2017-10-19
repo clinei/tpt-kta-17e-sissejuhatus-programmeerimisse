@@ -11,11 +11,16 @@ namespace Demo
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Hei! Tahan meelde jätta kasutaja sisendit");
+            Console.WriteLine("Hei! Kaks numbrit");
 
+            Console.Write("Palun sisesta number");
             string input = Console.ReadLine();
 
-            Console.WriteLine(input);
+            int sisestatudNumber = int.Parse(input);
+
+            int number = 5;
+
+            Console.WriteLine(number + input);
 
             Console.ReadLine();
             // prindi välja "Sina ütled"
