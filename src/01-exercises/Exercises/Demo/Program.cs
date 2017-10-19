@@ -10,24 +10,20 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Hei! Kaks numbrit");
-
-            Console.Write("Palun sisesta number");
-            string input = Console.ReadLine();
-
-            int sisestatudNumber = int.Parse(input);
-
             int number = 5;
 
-            Console.WriteLine(number + input);
+            if (number == 5) {
+                Console.WriteLine("Number on 5");
+            }
 
+            if (number == 3)
+            {
+                Console.WriteLine("Number on 3");
+            }
+
+            Console.WriteLine("Press any key to continue");
             Console.ReadLine();
-            // prindi välja "Sina ütled"
-            // küsi kasutaja sisend ja salvesta nii, et saan seda kasutada
-            // prindi välja "Mina ütlen"...
 
-            // oota kasutaja sisendit, et programm kinni ei läheks
         }
     }
 }
