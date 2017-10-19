@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-First-User-Input", "03-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Parse-Input-To-Int", "04-Parse-Input-To-Int\04-Parse-Input-To-Int.csproj", "{E4286004-1C2B-4383-BF28-AA235D8F8395}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05-Parse-Input-Multiply-Divide", "05-Parse-Input-Multiply-Divide\05-Parse-Input-Multiply-Divide.csproj", "{78B00600-153C-41FB-A29D-2A49027308F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E4286004-1C2B-4383-BF28-AA235D8F8395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4286004-1C2B-4383-BF28-AA235D8F8395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4286004-1C2B-4383-BF28-AA235D8F8395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B00600-153C-41FB-A29D-2A49027308F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B00600-153C-41FB-A29D-2A49027308F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B00600-153C-41FB-A29D-2A49027308F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B00600-153C-41FB-A29D-2A49027308F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
