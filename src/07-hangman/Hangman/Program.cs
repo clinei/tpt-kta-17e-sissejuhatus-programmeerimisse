@@ -1,45 +1,155 @@
-﻿namespace Hangman
-{
+﻿namespace Hangman {
     using System;
+    using System.Collections.Generic;
 
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            /*
-             * 1. Kirjuta pseudokood või eeldatav programmi output
+    public class Program {
+        public static void Main(string[] args) {
 
-                2. Arvuti suudab välja valida ühe sõna
+            // using the Estonian alphabet
+            List<char> alphabet = new List<char>("ABDEFGHIJKLMNOPRSTUVÕÄÖÜ");
 
-                3. Suudab välja kuvada õige arvu "_" märke iga tähe asemel
+            char ESC = (char) 27;
 
-                4. Kui kasutaja arvab ära õige tähe, siis see asendatakse õige _ kohapeal
+            string[] words = new string[] { "TOOMAS", "HENDRIK", "ILVES", "PUUDEL", "PUDEL",
+                                            "HELKUR", "HERKULAPUDER", "KANALIHA", "SPAGETID",
+                                            "SISESTA", "TÄHTHAAVAL", "SÕNASUPP", "SÕNASEPP" };
 
-                    4.1 Hoitakse meeles õiget sõna
-                    4.2 Hoitakse meeles kõiki kasutaja         poolt sisestatud tähti
-                    4.3 iga tähe printimise korral         otsustada kas täht või _ (if/else         kas on arvatud või mitte)
+            List<char> guesses = new List<char>(alphabet.Count);
 
-                5. Kui sõna on ära arvatud siis on võit! 
-             */
+            List<char> word = new List<char>();
 
+            List<char> revealed = new List<char>();
 
-            Console.WriteLine("Arvuti on valinud ühe sõna, arva see tähthaaval ära vähem kui 5 eksimusega");
+            uint lives = 5;
 
-            Console.WriteLine();
-            Console.WriteLine("_ _ _ _ _"); // ILVES
-            Console.WriteLine("> A");
+            Random randGen = new Random();
 
-            Console.WriteLine();
-            Console.WriteLine("_ _ _ _ _"); // ILVES
-            Console.WriteLine("> L");
+            bool playing = true;
 
-            Console.WriteLine();
-            Console.WriteLine("_ L _ _ _"); // ILVES
-            Console.WriteLine("> S");
+            while (playing) {
 
-            Console.WriteLine();
-            Console.WriteLine("_ L _ _ S"); // ILVES
-            Console.WriteLine("> ");
+                word.Clear();
+                word.AddRange(words[randGen.Next(0, words.Length)].ToUpper());
+                revealed.Clear();
+                guesses.Clear();
+
+                // hide letters
+                for (int i = 0; i < word.Count; i++) {
+                    revealed.Insert(i, '_');
+                }
+
+                lives = 5;
+
+                Console.WriteLine();
+                Console.WriteLine("Valisin sõna. Arva see tähthaaval ära.");
+                Console.WriteLine("Kui arvad 5 korda valesti, on mäng läbi.");
+                Console.WriteLine("Mängust lahkumiseks vajuta Escape.");
+
+                Console.WriteLine();
+                Console.WriteLine(String.Join(" ", revealed));
+
+                // main loop
+                while (lives > 0) {
+
+                    Console.WriteLine();
+                    Console.Write(">>> ");
+                    char input = Char.ToUpper(Console.ReadKey(true).KeyChar);
+                    bool inputValid = false;
+
+                    if (input == ESC) {
+                        playing = false;
+                        lives = 0;
+                        continue;
+                    }
+
+                    if (alphabet.Contains(input)) {
+                        inputValid = true;
+
+                        Console.WriteLine(input);
+                    }
+
+                    bool alreadyGuessed = false;
+
+                    if (guesses.Contains(input)) {
+                        alreadyGuessed = true;
+                    }
+
+                    bool contains = false;
+
+                    if (inputValid && !alreadyGuessed) {
+
+                        guesses.Add(input);
+
+                        for (int i = 0; i < word.Count; i++) {
+                            char c = word[i];
+
+                            if (input == c) {
+                                contains = true;
+                                revealed[i] = c;
+                            }
+                        }
+
+                        if (!contains) {
+                            lives -= 1;
+                        }
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine(String.Join(" ", revealed));
+
+                    // check answer
+                    if (String.Join("", revealed) != String.Join("", word)) {
+
+                        if (alreadyGuessed) {
+                            Console.WriteLine();
+                            Console.WriteLine("Seda tähte oled juba pakkunud.");
+
+                        } else {
+                            if (!inputValid) {
+                                Console.WriteLine();
+                                Console.WriteLine("Sisestage ainult eesti keele tähti.");
+
+                            } else {
+                                if (!contains) {
+                                    Console.WriteLine();
+                                    Console.WriteLine("Seda tähte sõnas ei ole.");
+                                }
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine("Elusid: {0}", lives);
+
+                        if (lives < 1) {
+                            Console.WriteLine();
+                            Console.Write("Oled surnud. Proovime uuesti? (Y/n) ");
+
+                            input = Char.ToUpper(Console.ReadKey(true).KeyChar);
+
+                            Console.WriteLine(input);
+                            Console.WriteLine();
+
+                            if (input == 'N') {
+                                playing = false;
+                            }
+                        }
+                    } else {
+                        Console.WriteLine();
+                        Console.Write("Võitsid! Mängime uuesti? (Y/n) ");
+
+                        input = Char.ToUpper(Console.ReadKey(true).KeyChar);
+
+                        Console.WriteLine(input);
+                        Console.WriteLine();
+
+                        if (input == 'N') {
+                            playing = false;
+                        }
+
+                        lives = 0;
+                    }
+                }
+            }
         }
     }
 }
